@@ -1,0 +1,61 @@
+html{
+    background: lightblue;
+    background-size: cover;
+}
+
+body{
+    display: flex;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.clock{
+    display: inline-flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.box {
+    position: relative;
+    width: 80px;
+    height: 150px;
+    background: teal;
+    box-shadow: black;
+    margin: 5px;
+}
+
+.digitSegment{
+    position: absolute;
+    background: transparent;
+    width: 6px;
+    height: 33px;
+    border-radius: 10px;
+}
+
+.circle {
+    position: absolute;
+    height: 25px;
+    width: 25px;
+    background-color: black;
+    border-radius: 50%;
+    display: flex;
+}
+
+.colon{
+     background: mediumslateblue;
+}
+
+.segment1 { top: 10%; left: 46.5%; rotate: 90deg;}
+.segment2 { top: 25%; left: 15%;}
+.segment3 { top: 25%; right: 15%;}
+.segment4 { top: 40%; left: 46.5%; rotate: 90deg;}
+.segment5 { bottom: 25%; left: 15%;}
+.segment6 { bottom: 25%; right: 15%;}
+.segment7 { bottom: 10%; left: 46.5%; rotate: 90deg;}

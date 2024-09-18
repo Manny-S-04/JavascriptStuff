@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="stylesheet" href="style.css" />
+		<meta charset="UTF-8" />
+		<title>Digital Clock</title>
+	</head>
+	<body>
+		<div class="clock">
+			<div class="box hour" id="box1">
+				<div class="digitSegment segment1" id="box1_digit1"></div>
+				<div class="digitSegment segment2" id="box1_digit2"></div>
+				<div class="digitSegment segment3" id="box1_digit3"></div>
+				<div class="digitSegment segment4" id="box1_digit4"></div>
+				<div class="digitSegment segment5" id="box1_digit5"></div>
+				<div class="digitSegment segment6" id="box1_digit6"></div>
+				<div class="digitSegment segment7" id="box1_digit7"></div>
+			</div>
+			<div class="box hour" id="box2">
+				<div class="digitSegment segment1" id="box2_digit1"></div>
+				<div class="digitSegment segment2" id="box2_digit2"></div>
+				<div class="digitSegment segment3" id="box2_digit3"></div>
+				<div class="digitSegment segment4" id="box2_digit4"></div>
+				<div class="digitSegment segment5" id="box2_digit5"></div>
+				<div class="digitSegment segment6" id="box2_digit6"></div>
+				<div class="digitSegment segment7" id="box2_digit7"></div>
+			</div>
+			<div class="box colon">
+				<div class="circle" style="top: 25%; left: 35%"></div>
+				<div class="circle" style="bottom: 25%; left: 35%"></div>
+			</div>
+			<div class="box minute" id="minuteBox1">
+				<div class="digitSegment segment1" id="minuteBox1_digit1"></div>
+				<div class="digitSegment segment2" id="minuteBox1_digit2"></div>
+				<div class="digitSegment segment3" id="minuteBox1_digit3"></div>
+				<div class="digitSegment segment4" id="minuteBox1_digit4"></div>
+				<div class="digitSegment segment5" id="minuteBox1_digit5"></div>
+				<div class="digitSegment segment6" id="minuteBox1_digit6"></div>
+				<div class="digitSegment segment7" id="minuteBox1_digit7"></div>
+			</div>
+			<div class="box minute" id="minuteBox2">
+				<div class="digitSegment segment1" id="minuteBox2_digit1"></div>
+				<div class="digitSegment segment2" id="minuteBox2_digit2"></div>
+				<div class="digitSegment segment3" id="minuteBox2_digit3"></div>
+				<div class="digitSegment segment4" id="minuteBox2_digit4"></div>
+				<div class="digitSegment segment5" id="minuteBox2_digit5"></div>
+				<div class="digitSegment segment6" id="minuteBox2_digit6"></div>
+				<div class="digitSegment segment7" id="minuteBox2_digit7"></div>
+			</div>
+			<div class="box colon">
+				<div class="circle" style="top: 25%; left: 35%"></div>
+				<div class="circle" style="bottom: 25%; left: 35%"></div>
+			</div>
+			<div class="box second" id="secondBox1">
+				<div class="digitSegment segment1" id="secondBox1_digit1"></div>
+				<div class="digitSegment segment2" id="secondBox1_digit2"></div>
+				<div class="digitSegment segment3" id="secondBox1_digit3"></div>
+				<div class="digitSegment segment4" id="secondBox1_digit4"></div>
+				<div class="digitSegment segment5" id="secondBox1_digit5"></div>
+				<div class="digitSegment segment6" id="secondBox1_digit6"></div>
+				<div class="digitSegment segment7" id="secondBox1_digit7"></div>
+			</div>
+
+			<div class="box second" id="secondBox2">
+				<div class="digitSegment segment1" id="secondBox2_digit1"></div>
+				<div class="digitSegment segment2" id="secondBox2_digit2"></div>
+				<div class="digitSegment segment3" id="secondBox2_digit3"></div>
+				<div class="digitSegment segment4" id="secondBox2_digit4"></div>
+				<div class="digitSegment segment5" id="secondBox2_digit5"></div>
+				<div class="digitSegment segment6" id="secondBox2_digit6"></div>
+				<div class="digitSegment segment7" id="secondBox2_digit7"></div>
+			</div>
+		</div>
+
+		<script>
+			const hourDigits = [];
+			const minsDigits = [];
+			const secDigits = [];
+
+			for (let i = 1; i <= 2; i++) {
+				hourDigits[i] = [];
+				minsDigits[i] = [];
+				secDigits[i] = [];
+
+				for (let j = 1; j <= 7; j++) {
+					hourDigits[i][j] = document.getElementById(
+						`box${i}_digit${j}`
+					);
+					minsDigits[i][j] = document.getElementById(
+						`minuteBox${i}_digit${j}`
+					);
+					secDigits[i][j] = document.getElementById(
+						`secondBox${i}_digit${j}`
+					);
+				}
+			}
+
+			function updateDom(domArray, intArray) {
+				if (intArray.length === 1) {
+					domArray[1].forEach((element) => {
+						element.style.background = "transparent";
+					});
+					let result = domArray[1].filter((_, index) =>
+						[1, 2, 3, 5, 6, 7].includes(index)
+					);
+					for (let i = 0; i < result.length; i++) {
+						result[i].style.background = "black";
+					}
+				}
+				for (let k = 0; k < intArray.length; k++) {
+					let boxToChange = domArray[k + 1];
+					if (intArray.length === 1) {
+						boxToChange = domArray[k + 2];
+					}
+					let indices = [];
+					let indicesToRevert = [];
+					let result;
+					let revert;
+
+					switch (intArray[k]) {
+						case "0":
+							indices = [1, 2, 3, 5, 6, 7];
+							break;
+						case "1":
+							indices = [3, 6];
+							break;
+						case "2":
+							indices = [1, 3, 4, 5, 7];
+							break;
+						case "3":
+							indices = [1, 3, 4, 6, 7];
+							break;
+						case "4":
+							indices = [2, 3, 4, 6];
+							break;
+						case "5":
+							indices = [1, 2, 4, 6, 7];
+							break;
+						case "6":
+							indices = [1, 2, 4, 5, 6, 7];
+							break;
+						case "7":
+							indices = [1, 3, 6];
+							break;
+						case "8":
+							indices = [1, 2, 3, 4, 5, 6, 7];
+							break;
+						case "9":
+							indices = [1, 2, 3, 4, 6];
+							break;
+						default:
+							break;
+					}
+
+					indicesToRevert = [1, 2, 3, 4, 5, 6, 7];
+
+					revert = boxToChange.filter((_, index) =>
+						indicesToRevert.includes(index)
+					);
+					for (let i = 0; i < revert.length; i++) {
+						revert[i].style.background = "transparent";
+					}
+
+					result = boxToChange.filter((_, index) =>
+						indices.includes(index)
+					);
+					for (let i = 0; i < result.length; i++) {
+						result[i].style.background = "black";
+					}
+				}
+			}
+			setInterval(() => {
+				const date = new Date();
+				const seconds = date.getSeconds().toString().split("");
+				const mins = date.getMinutes().toString().split("");
+				const hrs = date.getHours().toString().split("");
+				updateDom(secDigits, seconds);
+				updateDom(minsDigits, mins);
+				updateDom(hourDigits, hrs);
+			}, 1000);
+		</script>
+	</body>
+</html>
