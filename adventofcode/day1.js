@@ -10,7 +10,7 @@ async function readFile() {
     }
 }
 
-async function day1() {
+async function sumAllElves(){
     const text = await readFile();
     const lines = text.split('\n');
     var summed = [];
@@ -28,7 +28,20 @@ async function day1() {
             currentSum = [];
         }
     }
+    return summed;
+}
+
+async function day1() {
+    var summed = await sumAllElves();
     console.log(Math.max(...summed)); // return 72718
 }
 
+async function day2(){
+    var summed = await sumAllElves();
+    summed = summed.sort((a,b) => a - b);
+    var total = summed.slice(-3).reduce((a,currVal) => a + currVal, 0);
+    console.log(total);
+}
+
 day1();
+day2();
